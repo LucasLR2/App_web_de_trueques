@@ -31,16 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const email = emailInput.value.trim();
       const contrasena = contrasenaInput.value;
 
-      if (!nombre || !email || !contrasena) {
-        alert('Por favor, completa todos los campos.');
-        return;
-      }
-
-      if (!terminosCheck.checked) {
-        alert('Debes aceptar los términos y condiciones.');
-        return;
-      }
-
       // Obtener usuarios existentes o inicializar
       let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
 
@@ -55,10 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
       // Agregar usuario y guardar en localStorage
       usuarios.push(nuevoUsuario);
       localStorage.setItem('usuarios', JSON.stringify(usuarios));
-
-      alert('Registro exitoso 🎉');
+      window.location.href = "index.html" // Redirigir a la página principal
       formulario.reset();
-      console.log('Usuarios registrados:', usuarios);
     });
   });
 });

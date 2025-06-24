@@ -65,7 +65,9 @@ document.addEventListener("DOMContentLoaded", function () {
     if (usuarioValido) {
       window.location.href = "index.html"; // Redirigir a la página principal
     } else {
-      console.log("Correo o contraseña incorrectos");
+      // Mostrar mensaje de error
+      
+      console.error("Credenciales incorrectas");
     }
   });
 });
