@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   formulario.addEventListener("submit", function (evento) {
     evento.preventDefault();
-
+    
     const correo = formulario.querySelector("input[type='email']").value.trim();
 
     // Buscar el input de contraseña por id, compatible con escritorio y móvil
@@ -68,7 +68,18 @@ document.addEventListener("DOMContentLoaded", function () {
         window.location.href = "index.html"; // Redirigir a la página principal
       }
     } else {
-      
+      // mostrar mensaje de error
+      // Elimina mensajes previos
+      const mensajePrevio = formulario.querySelector('.mensaje-error-login');
+      if (mensajePrevio) mensajePrevio.remove();
+
+      // Crea el div de error
+      const divError = document.createElement('div');
+      divError.className = 'mensaje-error-login text-red-600 text-sm mb-4 text-center';
+      divError.textContent = `El usuario ${correo} no ha podido ser encontrado`;
+
+      // Inserta el mensaje al principio del formulario
+      formulario.insertBefore(divError, formulario.firstChild);
     }
   });
 });
