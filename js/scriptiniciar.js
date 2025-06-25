@@ -38,6 +38,7 @@ let usuariosCombinados = usuarios.concat(
 );
 usuarios = usuariosCombinados;
 
+// autenticar usuario al enviar el formulario
 document.addEventListener("DOMContentLoaded", function () {
   const anchoPantalla = window.innerWidth;
 
@@ -47,26 +48,27 @@ document.addEventListener("DOMContentLoaded", function () {
       ? document.getElementById("form-login-desktop")
       : document.getElementById("form-login-mobile");
 
-  if (!formulario) {
-    console.error("No se encontró el formulario correspondiente");
-    return;
-  }
-
   formulario.addEventListener("submit", function (evento) {
     evento.preventDefault();
 
     const correo = formulario.querySelector("input[type='email']").value.trim();
-    const clave = formulario.querySelector("input[type='password']").value.trim();
+
+    // Buscar el input de contraseña por id, compatible con escritorio y móvil
+    let claveInput = formulario.querySelector("#password-escritorio") || formulario.querySelector("#password-movil");
+    const clave = claveInput ? claveInput.value.trim() : "";
 
     const usuarioValido = usuarios.find(
       (usuario) => usuario.email === correo && usuario.contrasena === clave
     );
 
     if (usuarioValido) {
-      window.location.href = "index.html"; // Redirigir a la página principal
+      if (usuarioValido.rol === "moderador") {
+        window.location.href = "admin_inicio.html"; // Redirigir a la página del moderador
+      } else {
+        window.location.href = "index.html"; // Redirigir a la página principal
+      }
     } else {
-      alert("Credenciales incorrectas. Por favor, verifica tu email y contraseña.");
-      console.error("Credenciales incorrectas");
+      
     }
   });
 });
